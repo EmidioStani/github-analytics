@@ -1,0 +1,7 @@
+Repo name;created;#issues;#comments;#users;locations
+SEMICeu/Core-Business-Vocabulary;2017-09-13T07:52:50Z;22;34;14;['Copenhagen', 'Bulgaria', 'Nantes', 'Denmark', 'Near Barcelona', 'UK']
+SEMICeu/Core-Location-Vocabulary;2017-09-13T07:51:08Z;21;44;19;['Berlin', 'Italy', 'Bulgaria', 'Nantes', 'Belgium', 'Copenhagen, DK', 'Denmark', 'Southampton, England', 'Luxembourg']
+SEMICeu/Core-Person-Vocabulary;2017-09-13T07:52:29Z;41;81;25;['Nantes', 'Brasília, DF, Brazil', 'Belgium', 'Nothing to see here, move along.', 'Helsinki', 'Denmark', 'Near Barcelona', 'Porto Alegre, Brazil']
+SEMICeu/CPOV;2017-09-13T07:48:53Z;21;45;15;['Copenhagen', 'Nantes', 'Brasília, DF, Brazil', 'Denmark', 'Near Barcelona', 'London', 'Porto Alegre, Brazil']
+SEMICeu/CCCEV;2017-09-13T07:47:02Z;43;53;14;['Nantes', 'Belgium', 'Paris, France', 'Near Barcelona', 'Netherlands']
+TOTAL;;148;257;42;['Berlin', 'Copenhagen', 'Luxembourg', 'Nantes', 'Nothing to see here, move along.', 'Near Barcelona', 'London', 'Southampton, England', 'Brasília, DF, Brazil', 'Belgium', 'Copenhagen, DK', 'Denmark', 'Helsinki', 'Netherlands', 'UK', 'Italy', 'Bulgaria', 'Paris, France', 'Porto Alegre, Brazil']

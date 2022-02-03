@@ -1,0 +1,39 @@
+api: https://api.github.com
+repo: 
+ - SEMICeu/Core-Business-Vocabulary
+ - SEMICeu/Core-Location-Vocabulary
+ - SEMICeu/Core-Person-Vocabulary
+ - SEMICeu/CPOV
+ - SEMICeu/CCCEV
+issuesperpage: 20
+issuesstate: all
+issuessortby : created
+token: INSERT_YOUR_PERSONAL_TOKEN_HERE
+accept: application/vnd.github.v3+jso
+output: output.csv
+header:
+ - 'Repo name'
+ - 'created'
+ - '#issues'
+ - '#comments'
+ - '#users'
+ - "locations"
+delimiter: ;
+total: TOTAL
+bars:
+  repos:
+    description: Repos
+    colour: MAGENTA
+    leave: True
+  pages:
+    description: Pages of issues
+    colour: RED
+    leave: False
+  issues:
+    description: Issues
+    colour: YELLOW
+    leave: False
+  comments:
+    description: Comments
+    colour: GREEN
+    leave: False 
