@@ -17,8 +17,7 @@ def get_config():
 
 def get_all_active_issues(per_page, sort_by, base_url, issue_state, token, headers):
     listdict = []
-    # The service endpoint to request from
-    endpoint_url = '/issues'
+    
     # Dictionary of params for the request
     params = {
         'page': 1,
@@ -26,12 +25,14 @@ def get_all_active_issues(per_page, sort_by, base_url, issue_state, token, heade
         'sort': sort_by,
         'state': issue_state
     }
-    # Send a request using our http_request wrapper
+
+    # add endpoint
+    endpoint_url = '/issues'
     url = base_url + endpoint_url
     # print(url)
     response = requests.get(base_url + endpoint_url, headers=headers, params=params)
     # print(response.json())
-    # testing remove the loop
+    # go to the next page until the json response of the page is empty
     while response.json():
         listdict.append(response.json())
         params['page'] = params['page'] + 1
@@ -45,14 +46,14 @@ def main():
     api = config['api']
     repo_list = config['repo']
     token = config['token']
-    accept = config['accept']
+    accept = config['mediatype']
     output = config['output']
     issues_per_page = config['issuesperpage']
     issues_state = config['issuesstate']
     issues_sort_by = config['issuessortby']
     csv_header = config['header']
     csv_delimiter = config['delimiter']
-    csv_total = config['total']
+    csv_total = config['totallabel']
     bar_repos_desc = config['bars']['repos']['description']
     bar_repos_colour = config['bars']['repos']['colour']
     bar_repos_leave= config['bars']['repos']['leave']

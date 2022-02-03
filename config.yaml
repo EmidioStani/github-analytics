@@ -9,7 +9,7 @@ issuesperpage: 20
 issuesstate: all
 issuessortby : created
 token: INSERT_YOUR_PERSONAL_TOKEN_HERE
-accept: application/vnd.github.v3+jso
+mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
  - 'Repo name'
@@ -19,7 +19,7 @@ header:
  - '#users'
  - "locations"
 delimiter: ;
-total: TOTAL
+totallabel: TOTAL
 bars:
   repos:
     description: Repos
