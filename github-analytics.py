@@ -1,4 +1,5 @@
 import csv
+import time
 from pathlib import Path
 from queue import Empty
 
@@ -45,6 +46,7 @@ def main():
     config = get_config()
     api = config['api']
     repo_list = config['repo']
+    waitingtime = config['waitingtime']
     token = config['token']
     accept = config['mediatype']
     output = config['output']
@@ -53,6 +55,7 @@ def main():
     issues_sort_by = config['issuessortby']
     csv_header = config['header']
     csv_delimiter = config['delimiter']
+    csv_encoding = config['encoding']
     csv_total = config['totallabel']
     bar_repos_desc = config['bars']['repos']['description']
     bar_repos_colour = config['bars']['repos']['colour']
@@ -75,7 +78,9 @@ def main():
     total_locations = []
     for repo in tqdm(repo_list, desc=bar_repos_desc, colour=bar_repos_colour, leave=bar_repos_leave):
         repo_url = api + "/repos/" + repo
+        time.sleep(waitingtime)
         repo_response = requests.get(repo_url, headers=headers)
+        # print(repo_response.content)
         repo_json = repo_response.json()
         created_at = repo_json["created_at"]
         issuelist = get_all_active_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
@@ -92,31 +97,40 @@ def main():
                 # print(issue["url"])
                 # print(issue["created_at"])
                 # print(issue["user"]["login"])
-                list_creator.append(issue["user"]["login"])
-                profile_url = api + "/users/" + issue["user"]["login"]
-                profile_response = requests.get(profile_url, headers=headers)
-                profile = profile_response.json()
-                if(profile["location"]):
-                    # print(profile["location"])
-                    list_creator_location.append(profile["location"])
+                
+                issue_creator = issue["user"]["login"]
+
+                if(issue_creator not in list_creator):
+                    list_creator.append(issue_creator)
+                    profile_url = api + "/users/" + issue_creator
+                    time.sleep(waitingtime)
+                    profile_response = requests.get(profile_url, headers=headers)
+                    profile = profile_response.json()
+                    if(profile["location"]):
+                        # print(profile["location"])
+                        list_creator_location.append(profile["location"])
                 # print(issue["comments"])
                 comments = issue["comments"]
                 count_comment += comments
                 if(comments > 0):
                     comments_url = issue["comments_url"]
+                    time.sleep(waitingtime)
                     comments_response = requests.get(comments_url, headers=headers)
                     comments_list = comments_response.json()
                     for i in tqdm(range(comments), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
                         # print(comments_list[i]["url"])
                         # print(comments_list[i]["user"]["login"])
-                        list_comments_creator.append(comments_list[i]["user"]["login"])
-                        # print(comments_list[i]["created_at"])
-                        comment_profile_url = api + "/users/" + comments_list[i]["user"]["login"]
-                        comment_profile_response = requests.get(comment_profile_url, headers=headers)
-                        comment_profile = comment_profile_response.json()
-                        if(comment_profile["location"]):
-                            # print(comment_profile["location"])
-                            list_comments_creator_location.append(comment_profile["location"])
+                        comment_creator = comments_list[i]["user"]["login"]
+                        if(comment_creator not in list_comments_creator):
+                            list_comments_creator.append(comment_creator)
+                            # print(comments_list[i]["created_at"])
+                            comment_profile_url = api + "/users/" + comment_creator
+                            time.sleep(waitingtime)
+                            comment_profile_response = requests.get(comment_profile_url, headers=headers)
+                            comment_profile = comment_profile_response.json()
+                            if(comment_profile["location"]):
+                                # print(comment_profile["location"])
+                                list_comments_creator_location.append(comment_profile["location"])
                 #if(issue["url"] == "https://api.github.com/repos/SEMICeu/Core-Person-Vocabulary/issues/13"):
                 #    print(issue)
 
@@ -147,7 +161,7 @@ def main():
     total_users = list(set(total_users))
     total_locations = list(set(total_locations))
     lines.append([csv_total, '' , total_count_issue, total_count_comments, len(total_users), total_locations])
-    with open(output, "w", newline='') as f:
+    with open(output, "w", newline='', encoding=csv_encoding) as f:
         writer = csv.writer(f, delimiter=csv_delimiter)
         # csv_header = ['Repo name', 'created', '#issues', '#comments', '#users', "locations"]
         writer.writerow(csv_header) # write the header

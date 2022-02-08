@@ -5,10 +5,13 @@ repo:
  - SEMICeu/Core-Person-Vocabulary
  - SEMICeu/CPOV
  - SEMICeu/CCCEV
+ - catalogue-of-services-isa/CPSV-AP
+ - SEMICeu/DCAT-AP
 issuesperpage: 20
 issuesstate: all
 issuessortby : created
-token: INSERT_YOUR_PERSONAL_TOKEN_HERE
+waitingtime: 2
+token: INSERT_YOUR_PERSONAL_ACCESS_TOKEN_HERE
 mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
@@ -19,6 +22,7 @@ header:
  - '#users'
  - "locations"
 delimiter: ;
+encoding: utf-8
 totallabel: TOTAL
 bars:
   repos:
