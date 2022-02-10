@@ -16,7 +16,7 @@ def get_config():
     return config
 
 
-def get_all_active_issues(per_page, sort_by, base_url, issue_state, token, headers):
+def get_all_issues(per_page, sort_by, base_url, issue_state, token, headers):
     listdict = []
     
     # Dictionary of params for the request
@@ -76,14 +76,16 @@ def main():
     total_count_comments = 0
     total_users = []
     total_locations = []
-    for repo in tqdm(repo_list, desc=bar_repos_desc, colour=bar_repos_colour, leave=bar_repos_leave):
+    repo_bar = tqdm(repo_list, desc=bar_repos_desc, colour=bar_repos_colour, leave=bar_repos_leave)
+    for repo in repo_bar:
+        repo_bar.set_description(repo)
         repo_url = api + "/repos/" + repo
         time.sleep(waitingtime)
         repo_response = requests.get(repo_url, headers=headers)
         # print(repo_response.content)
         repo_json = repo_response.json()
         created_at = repo_json["created_at"]
-        issuelist = get_all_active_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
+        issuelist = get_all_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
         count_issue = 0
         list_creator = []
         list_creator_location = []

@@ -10,7 +10,7 @@ repo:
 issuesperpage: 20
 issuesstate: all
 issuessortby : created
-waitingtime: 2
+waitingtime: 1
 token: INSERT_YOUR_PERSONAL_ACCESS_TOKEN_HERE
 mediatype: application/vnd.github.v3+jso
 output: output.csv
