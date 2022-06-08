@@ -82,84 +82,86 @@ def main():
         repo_url = api + "/repos/" + repo
         time.sleep(waitingtime)
         repo_response = requests.get(repo_url, headers=headers)
-        # print(repo_response.content)
-        repo_json = repo_response.json()
-        created_at = repo_json["created_at"]
-        issuelist = get_all_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
-        count_issue = 0
-        list_creator = []
-        list_creator_location = []
-        count_comment = 0
-        list_comments_creator = []
-        list_comments_creator_location = []
- 
-        for page in tqdm(issuelist, desc=bar_pages_desc, colour=bar_pages_colour, leave=bar_pages_leave):
-            for issue in tqdm(page, desc=bar_issues_desc, colour=bar_issues_colour, leave=bar_issues_leave):
-                count_issue += 1
-                # print(issue["url"])
-                # print(issue["created_at"])
-                # print(issue["user"]["login"])
-                
-                issue_creator = issue["user"]["login"]
-
-                if(issue_creator not in list_creator):
-                    list_creator.append(issue_creator)
-                    profile_url = api + "/users/" + issue_creator
-                    time.sleep(waitingtime)
-                    profile_response = requests.get(profile_url, headers=headers)
-                    profile = profile_response.json()
-                    if(profile["location"]):
-                        # print(profile["location"])
-                        list_creator_location.append(profile["location"])
-                # print(issue["comments"])
-                comments = issue["comments"]
-                count_comment += comments
-                if(comments > 0):
-                    comments_url = issue["comments_url"]
-                    time.sleep(waitingtime)
-                    comments_response = requests.get(comments_url, headers=headers)
-                    comments_list = comments_response.json()
-                    for i in tqdm(range(comments), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
-                        # print(comments_list[i]["url"])
-                        # print(comments_list[i]["user"]["login"])
-                        comment_creator = comments_list[i]["user"]["login"]
-                        if(comment_creator not in list_comments_creator):
-                            list_comments_creator.append(comment_creator)
-                            # print(comments_list[i]["created_at"])
-                            comment_profile_url = api + "/users/" + comment_creator
-                            time.sleep(waitingtime)
-                            comment_profile_response = requests.get(comment_profile_url, headers=headers)
-                            comment_profile = comment_profile_response.json()
-                            if(comment_profile["location"]):
-                                # print(comment_profile["location"])
-                                list_comments_creator_location.append(comment_profile["location"])
-                #if(issue["url"] == "https://api.github.com/repos/SEMICeu/Core-Person-Vocabulary/issues/13"):
-                #    print(issue)
-
-        # print("Repo name: %s" % repo)
-        # print("Number of issues: %s" % count_issue)
-        # print("Number of comments: %s" % count_comment)
-        list_creator = list(set(list_creator))
-        # print("Number of unique creators: %s" % len(list_creator))
-        list_creator_location = list(set(list_creator_location))
-        # print("Creator locations: %s" % list_creator_location)
-        list_comments_creator = list(set(list_comments_creator))
-        # print("Number of unique commenters: %s" % len(list_comments_creator))
-        list_comments_creator_location = list(set(list_comments_creator_location))
-        # print("Commenters location: %s" % list_comments_creator_location)
-        joined_list_creator =  list(set(list_creator + list_comments_creator))
-        # print("Number of joined creators: %s" % len(joined_list_creator))
-        joined_list_location =  list(set(list_creator_location + list_comments_creator_location))
-        # print("Joined locations: %s" % joined_list_location)
-        
-        total_count_issue += count_issue
-        total_count_comments += count_comment
-        for user in joined_list_creator:
-            total_users.append(user)
-        for location in joined_list_location:
-            total_locations.append(location)
-        lines.append([repo, created_at, count_issue, count_comment, len(joined_list_creator),  joined_list_location])
+        if (repo_response.status_code == 200):
+            repo_json = repo_response.json()
+            created_at = repo_json["created_at"]
+            issuelist = get_all_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
+            count_issue = 0
+            list_creator = []
+            list_creator_location = []
+            count_comment = 0
+            list_comments_creator = []
+            list_comments_creator_location = []
     
+            for page in tqdm(issuelist, desc=bar_pages_desc, colour=bar_pages_colour, leave=bar_pages_leave):
+                for issue in tqdm(page, desc=bar_issues_desc, colour=bar_issues_colour, leave=bar_issues_leave):
+                    count_issue += 1
+                    # print(issue["url"])
+                    # print(issue["created_at"])
+                    # print(issue["user"]["login"])
+                    
+                    issue_creator = issue["user"]["login"]
+
+                    if(issue_creator not in list_creator):
+                        list_creator.append(issue_creator)
+                        profile_url = api + "/users/" + issue_creator
+                        time.sleep(waitingtime)
+                        profile_response = requests.get(profile_url, headers=headers)
+                        profile = profile_response.json()
+                        if(profile["location"]):
+                            # print(profile["location"])
+                            list_creator_location.append(profile["location"])
+                    # print(issue["comments"])
+                    comments = issue["comments"]
+                    count_comment += comments
+                    if(comments > 0):
+                        comments_url = issue["comments_url"]
+                        time.sleep(waitingtime)
+                        comments_response = requests.get(comments_url, headers=headers)
+                        comments_list = comments_response.json()
+                        for i in tqdm(range(comments), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
+                            # print(comments_list[i]["url"])
+                            # print(comments_list[i]["user"]["login"])
+                            comment_creator = comments_list[i]["user"]["login"]
+                            if(comment_creator not in list_comments_creator):
+                                list_comments_creator.append(comment_creator)
+                                # print(comments_list[i]["created_at"])
+                                comment_profile_url = api + "/users/" + comment_creator
+                                time.sleep(waitingtime)
+                                comment_profile_response = requests.get(comment_profile_url, headers=headers)
+                                comment_profile = comment_profile_response.json()
+                                if(comment_profile["location"]):
+                                    # print(comment_profile["location"])
+                                    list_comments_creator_location.append(comment_profile["location"])
+                    #if(issue["url"] == "https://api.github.com/repos/SEMICeu/Core-Person-Vocabulary/issues/13"):
+                    #    print(issue)
+
+            # print("Repo name: %s" % repo)
+            # print("Number of issues: %s" % count_issue)
+            # print("Number of comments: %s" % count_comment)
+            list_creator = list(set(list_creator))
+            # print("Number of unique creators: %s" % len(list_creator))
+            list_creator_location = list(set(list_creator_location))
+            # print("Creator locations: %s" % list_creator_location)
+            list_comments_creator = list(set(list_comments_creator))
+            # print("Number of unique commenters: %s" % len(list_comments_creator))
+            list_comments_creator_location = list(set(list_comments_creator_location))
+            # print("Commenters location: %s" % list_comments_creator_location)
+            joined_list_creator =  list(set(list_creator + list_comments_creator))
+            # print("Number of joined creators: %s" % len(joined_list_creator))
+            joined_list_location =  list(set(list_creator_location + list_comments_creator_location))
+            # print("Joined locations: %s" % joined_list_location)
+            
+            total_count_issue += count_issue
+            total_count_comments += count_comment
+            for user in joined_list_creator:
+                total_users.append(user)
+            for location in joined_list_location:
+                total_locations.append(location)
+            lines.append([repo, created_at, count_issue, count_comment, len(joined_list_creator),  joined_list_location])
+        else:
+            print("error " + str(repo_response.status_code))
+            print("message " + str(repo_response.content))
     total_users = list(set(total_users))
     total_locations = list(set(total_locations))
     lines.append([csv_total, '' , total_count_issue, total_count_comments, len(total_users), total_locations])

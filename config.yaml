@@ -5,7 +5,7 @@ repo:
  - SEMICeu/Core-Person-Vocabulary
  - SEMICeu/CPOV
  - SEMICeu/CCCEV
- - catalogue-of-services-isa/CPSV-AP
+ - SEMICeu/CPSV-AP
  - SEMICeu/DCAT-AP
 issuesperpage: 20
 issuesstate: all

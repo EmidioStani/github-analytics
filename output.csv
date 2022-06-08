@@ -1,9 +1,3 @@
 Repo name;created;#issues;#comments;#users;locations
-SEMICeu/Core-Business-Vocabulary;2017-09-13T07:52:50Z;22;34;14;['Near Barcelona', 'Nantes', 'Bulgaria', 'Copenhagen', 'UK', 'Denmark']
-SEMICeu/Core-Location-Vocabulary;2017-09-13T07:51:08Z;21;44;19;['Nantes', 'Berlin', 'Belgium', 'Copenhagen, DK', 'Bulgaria', 'Italy', 'Southampton, England', 'Luxembourg', 'Denmark']
-SEMICeu/Core-Person-Vocabulary;2017-09-13T07:52:29Z;41;81;25;['Near Barcelona', 'Nantes', 'Belgium', 'Nothing to see here, move along.', 'Brasília, DF, Brazil', 'Helsinki', 'Porto Alegre, Brazil', 'Denmark']
-SEMICeu/CPOV;2017-09-13T07:48:53Z;21;45;15;['Near Barcelona', 'Nantes', 'Brasília, DF, Brazil', 'Copenhagen', 'Porto Alegre, Brazil', 'London', 'Denmark']
-SEMICeu/CCCEV;2017-09-13T07:47:02Z;43;53;14;['Near Barcelona', 'Paris, France', 'Belgium', 'Nantes', 'Netherlands']
-catalogue-of-services-isa/CPSV-AP;2017-09-13T07:49:11Z;72;58;20;['Near Barcelona', 'Nantes', 'Belgium', 'Oslo', 'Ghent', 'Leuven, Belgium', 'Brussels']
-SEMICeu/DCAT-AP;2017-09-13T07:53:27Z;220;748;57;['Nantes', 'Berlin', 'Orléans, France', 'Brussels (BE)', 'Italy', 'Wageningen', 'United Kingdom', 'Tampere', 'Copenhagen, Denmark', 'Leuven, Belgium', 'Zurich, Switzerland', 'Luxembourg', 'Denmark', 'Belgium', 'Sweden', 'Oslo', 'Prague, Czechia', 'Madrid, Spain', 'Lisbon, Portugal', 'Paris', 'Copenhagen', 'Oslo, Norway', 'Leesburg, VA', 'Germany', 'Bucharest', '✈', 'Brussels']
-TOTAL;;440;1063;100;['Nantes', 'Berlin', 'Bulgaria', 'Orléans, France', 'Porto Alegre, Brazil', 'Brussels (BE)', 'Paris, France', 'Copenhagen, DK', 'Nothing to see here, move along.', 'Helsinki', 'Italy', 'Wageningen', 'United Kingdom', 'Tampere', 'Copenhagen, Denmark', 'Ghent', 'Leuven, Belgium', 'Zurich, Switzerland', 'London', 'Luxembourg', 'UK', 'Denmark', 'Near Barcelona', 'Belgium', 'Sweden', 'Oslo', 'Prague, Czechia', 'Madrid, Spain', 'Lisbon, Portugal', 'Paris', 'Copenhagen', 'Oslo, Norway', 'Leesburg, VA', 'Brasília, DF, Brazil', 'Germany', 'Netherlands', 'Bucharest', '✈', 'Southampton, England', 'Brussels']
+SEMICeu/CPSV-AP;2017-09-13T07:49:11Z;92;132;22;['Brussels', 'Oslo', 'Nantes', 'Leuven, Belgium', 'Belgium', 'Ghent', 'Near Barcelona']
+TOTAL;;92;132;22;['Brussels', 'Oslo', 'Nantes', 'Leuven, Belgium', 'Belgium', 'Ghent', 'Near Barcelona']
