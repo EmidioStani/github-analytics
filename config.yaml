@@ -13,7 +13,7 @@ issuesperpage: 20
 issuesstate: all
 issuessortby : created
 waitingtime: 1
-token: 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
+token: ACCESS_TOKEN
 mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
