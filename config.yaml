@@ -4,20 +4,24 @@ repo:
  - SEMICeu/Core-Location-Vocabulary
  - SEMICeu/Core-Person-Vocabulary
  - SEMICeu/CPOV
+ - SEMICeu/Core-Public-Event-Vocabulary
  - SEMICeu/CCCEV
  - SEMICeu/CPSV-AP
  - SEMICeu/DCAT-AP
+ - SEMICeu/CAMSS_CSSV
 issuesperpage: 20
 issuesstate: all
 issuessortby : created
 waitingtime: 1
-token: INSERT_YOUR_PERSONAL_ACCESS_TOKEN_HERE
+token: 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
 mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
  - 'Repo name'
  - 'created'
  - '#issues'
+ - '#issues open'
+ - '#issues closed'
  - '#comments'
  - '#users'
  - "locations"

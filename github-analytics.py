@@ -73,6 +73,8 @@ def main():
     headers = {'Authorization': 'token ' + token, 'Accept' : accept}
     lines = []
     total_count_issue = 0
+    total_count_issue_open = 0
+    total_count_issue_closed = 0
     total_count_comments = 0
     total_users = []
     total_locations = []
@@ -87,6 +89,8 @@ def main():
             created_at = repo_json["created_at"]
             issuelist = get_all_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
             count_issue = 0
+            count_issues_open = 0
+            count_issues_closed = 0
             list_creator = []
             list_creator_location = []
             count_comment = 0
@@ -99,7 +103,10 @@ def main():
                     # print(issue["url"])
                     # print(issue["created_at"])
                     # print(issue["user"]["login"])
-                    
+                    if(issue['state'] == "open"):
+                        count_issues_open += 1
+                    else:
+                        count_issues_closed += 1
                     issue_creator = issue["user"]["login"]
 
                     if(issue_creator not in list_creator):
@@ -153,18 +160,20 @@ def main():
             # print("Joined locations: %s" % joined_list_location)
             
             total_count_issue += count_issue
+            total_count_issue_open += count_issues_open
+            total_count_issue_closed += count_issues_closed
             total_count_comments += count_comment
             for user in joined_list_creator:
                 total_users.append(user)
             for location in joined_list_location:
                 total_locations.append(location)
-            lines.append([repo, created_at, count_issue, count_comment, len(joined_list_creator),  joined_list_location])
+            lines.append([repo, created_at, count_issue, count_issues_open, count_issues_closed, count_comment, len(joined_list_creator),  joined_list_location])
         else:
             print("error " + str(repo_response.status_code))
             print("message " + str(repo_response.content))
     total_users = list(set(total_users))
     total_locations = list(set(total_locations))
-    lines.append([csv_total, '' , total_count_issue, total_count_comments, len(total_users), total_locations])
+    lines.append([csv_total, '' , total_count_issue, total_count_issue_open, total_count_issue_closed, total_count_comments, len(total_users), total_locations])
     with open(output, "w", newline='', encoding=csv_encoding) as f:
         writer = csv.writer(f, delimiter=csv_delimiter)
         # csv_header = ['Repo name', 'created', '#issues', '#comments', '#users', "locations"]

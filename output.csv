@@ -1,3 +1,11 @@
-Repo name;created;#issues;#comments;#users;locations
-SEMICeu/CPSV-AP;2017-09-13T07:49:11Z;92;132;22;['Brussels', 'Oslo', 'Nantes', 'Leuven, Belgium', 'Belgium', 'Ghent', 'Near Barcelona']
-TOTAL;;92;132;22;['Brussels', 'Oslo', 'Nantes', 'Leuven, Belgium', 'Belgium', 'Ghent', 'Near Barcelona']
+Repo name;created;#issues;#issues open;#issues closed;#comments;#users;locations
+SEMICeu/Core-Business-Vocabulary;2017-09-13T07:52:50Z;24;8;16;39;16;['Nantes', 'Denmark', 'Prague, Czechia', 'Copenhagen', 'Bulgaria', 'UK', 'Near Barcelona']
+SEMICeu/Core-Location-Vocabulary;2017-09-13T07:51:08Z;21;3;18;51;19;['Luxembourg', 'Nantes', 'Denmark', 'Berlin', 'Copenhagen, DK', 'Southampton, England', 'Belgium', 'Bulgaria', 'Italy']
+SEMICeu/Core-Person-Vocabulary;2017-09-13T07:52:29Z;41;13;28;91;25;['Nothing to see here, move along.', 'Helsinki', 'Nantes', 'Denmark', 'Brasília, DF, Brazil', 'Belgium', 'Porto Alegre, Brazil', 'Near Barcelona']
+SEMICeu/CPOV;2017-09-13T07:48:53Z;23;5;18;48;16;['Nantes', 'Denmark', 'Brasília, DF, Brazil', 'London', 'Copenhagen', 'Porto Alegre, Brazil', 'Near Barcelona']
+SEMICeu/Core-Public-Event-Vocabulary;2018-01-08T14:30:34Z;22;21;1;32;14;['Brussels', 'Leuven, Belgium', 'Attica, Greece', 'Bredene, Belgium', 'Sophia Antipolis']
+SEMICeu/CCCEV;2017-09-13T07:47:02Z;45;3;42;53;16;['Nantes', 'Paris, France', 'Latina, Italia', 'Oslo', 'Belgium', 'Netherlands', 'Near Barcelona']
+SEMICeu/CPSV-AP;2017-09-13T07:49:11Z;99;20;79;144;22;['Nantes', 'Brussels', 'Leuven, Belgium', 'Oslo', 'Belgium', 'Ghent', 'Near Barcelona']
+SEMICeu/DCAT-AP;2017-09-13T07:53:27Z;228;34;194;769;60;['Luxembourg', 'Berlin', 'Bucharest', 'Tartu, Estonia', 'Tampere', 'Leesburg, VA', 'Belgium', 'Wageningen', 'Denmark', 'Germany', 'Oslo', 'Copenhagen', 'Italy', '✈', 'Copenhagen, Denmark', 'Nantes', 'Brussels', 'Leuven, Belgium', 'Orléans, France', 'Zurich, Switzerland', 'Prague, Czechia', 'United Kingdom', 'Sweden', 'Lisbon, Portugal', 'Oslo, Norway', 'Paris', 'Brussels (BE)', 'Madrid, Spain', 'Dublin']
+SEMICeu/CAMSS_CSSV;2019-10-21T15:27:40Z;8;8;0;16;4;['Copenhagen, Denmark', 'Near Barcelona', 'Denmark']
+TOTAL;;511;115;396;1243;117;['Luxembourg', 'Berlin', 'Attica, Greece', 'Bucharest', 'Brasília, DF, Brazil', 'Tartu, Estonia', 'Latina, Italia', 'Tampere', 'Leesburg, VA', 'Southampton, England', 'Belgium', 'Netherlands', 'Wageningen', 'UK', 'Denmark', 'Paris, France', 'Germany', 'Copenhagen, DK', 'Bredene, Belgium', 'Oslo', 'Copenhagen', 'Italy', '✈', 'Nothing to see here, move along.', 'Copenhagen, Denmark', 'Nantes', 'Brussels', 'Leuven, Belgium', 'Orléans, France', 'Zurich, Switzerland', 'Prague, Czechia', 'United Kingdom', 'Porto Alegre, Brazil', 'Sweden', 'Lisbon, Portugal', 'Near Barcelona', 'Helsinki', 'Oslo, Norway', 'Paris', 'London', 'Brussels (BE)', 'Ghent', 'Bulgaria', 'Madrid, Spain', 'Dublin', 'Sophia Antipolis']
