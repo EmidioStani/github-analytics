@@ -126,20 +126,24 @@ def main():
                         time.sleep(waitingtime)
                         comments_response = requests.get(comments_url, headers=headers)
                         comments_list = comments_response.json()
-                        for i in tqdm(range(comments), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
-                            # print(comments_list[i]["url"])
-                            # print(comments_list[i]["user"]["login"])
-                            comment_creator = comments_list[i]["user"]["login"]
-                            if(comment_creator not in list_comments_creator):
-                                list_comments_creator.append(comment_creator)
-                                # print(comments_list[i]["created_at"])
-                                comment_profile_url = api + "/users/" + comment_creator
-                                time.sleep(waitingtime)
-                                comment_profile_response = requests.get(comment_profile_url, headers=headers)
-                                comment_profile = comment_profile_response.json()
-                                if(comment_profile["location"]):
-                                    # print(comment_profile["location"])
-                                    list_comments_creator_location.append(comment_profile["location"])
+                        # print(comments_list)
+                        if (len(comments_list) > 0): # in case of pull requests
+                            for i in tqdm(range(comments), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
+                                # print(comments_list[i]["url"])
+                                # print(comments_list[i]["user"]["login"])
+                                #print(comments_list[i])
+                                
+                                comment_creator = comments_list[i]["user"]["login"]
+                                if(comment_creator not in list_comments_creator):
+                                    list_comments_creator.append(comment_creator)
+                                    # print(comments_list[i]["created_at"])
+                                    comment_profile_url = api + "/users/" + comment_creator
+                                    time.sleep(waitingtime)
+                                    comment_profile_response = requests.get(comment_profile_url, headers=headers)
+                                    comment_profile = comment_profile_response.json()
+                                    if(comment_profile["location"]):
+                                        # print(comment_profile["location"])
+                                        list_comments_creator_location.append(comment_profile["location"])
                     #if(issue["url"] == "https://api.github.com/repos/SEMICeu/Core-Person-Vocabulary/issues/13"):
                     #    print(issue)
 

@@ -1,19 +1,23 @@
 api: https://api.github.com
 repo: 
- - SEMICeu/Core-Business-Vocabulary
- - SEMICeu/Core-Location-Vocabulary
  - SEMICeu/Core-Person-Vocabulary
+ - SEMICeu/Core-Location-Vocabulary
+ - SEMICeu/Core-Business-Vocabulary
  - SEMICeu/CPOV
- - SEMICeu/Core-Public-Event-Vocabulary
  - SEMICeu/CCCEV
+ - SEMICeu/Core-Public-Event-Vocabulary
+ - SEMICeu/CPSV
  - SEMICeu/CPSV-AP
+ - SEMICeu/SDG-search-service-model
+ - SEMICeu/ADMS-AP
  - SEMICeu/DCAT-AP
- - SEMICeu/CAMSS_CSSV
+ - SEMICeu/StatDCAT-AP
+ - SEMICeu/GeoDCAT-AP
 issuesperpage: 20
 issuesstate: all
 issuessortby : created
 waitingtime: 1
-token: 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
+token: ###REPLACE###
 mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
