@@ -13,15 +13,11 @@ repo:
  - SEMICeu/DCAT-AP
  - SEMICeu/StatDCAT-AP
  - SEMICeu/GeoDCAT-AP
-issuesperpage: 20
+issuesperpage: 30
 issuesstate: all
 issuessortby : created
 waitingtime: 1
-<<<<<<< HEAD
-token: ###REPLACE###
-=======
-token: ACCESS_TOKEN
->>>>>>> 7f70f47007b5f51c9e37a26a120891a48c6411ff
+token: ***REPLACE***
 mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
@@ -32,6 +28,7 @@ header:
  - '#issues closed'
  - '#comments'
  - '#users'
+ - "users"
  - "locations"
 delimiter: ;
 encoding: utf-8

@@ -128,7 +128,7 @@ def main():
                         comments_list = comments_response.json()
                         # print(comments_list)
                         if (len(comments_list) > 0): # in case of pull requests
-                            for i in tqdm(range(comments), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
+                            for i in tqdm(range(len((comments_list))), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
                                 # print(comments_list[i]["url"])
                                 # print(comments_list[i]["user"]["login"])
                                 #print(comments_list[i])
@@ -171,13 +171,13 @@ def main():
                 total_users.append(user)
             for location in joined_list_location:
                 total_locations.append(location)
-            lines.append([repo, created_at, count_issue, count_issues_open, count_issues_closed, count_comment, len(joined_list_creator),  joined_list_location])
+            lines.append([repo, created_at, count_issue, count_issues_open, count_issues_closed, count_comment, len(joined_list_creator),  joined_list_creator, joined_list_location])
         else:
             print("error " + str(repo_response.status_code))
             print("message " + str(repo_response.content))
     total_users = list(set(total_users))
     total_locations = list(set(total_locations))
-    lines.append([csv_total, '' , total_count_issue, total_count_issue_open, total_count_issue_closed, total_count_comments, len(total_users), total_locations])
+    lines.append([csv_total, '' , total_count_issue, total_count_issue_open, total_count_issue_closed, total_count_comments, len(total_users), total_users, total_locations])
     with open(output, "w", newline='', encoding=csv_encoding) as f:
         writer = csv.writer(f, delimiter=csv_delimiter)
         # csv_header = ['Repo name', 'created', '#issues', '#comments', '#users', "locations"]
