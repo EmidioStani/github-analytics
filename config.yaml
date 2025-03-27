@@ -9,20 +9,30 @@ repo:
  - SEMICeu/CPSV
  - SEMICeu/CPSV-AP
  - SEMICeu/SDG-search-service-model
+ - SEMICeu/ADMS
  - SEMICeu/ADMS-AP
  - SEMICeu/DCAT-AP
  - SEMICeu/StatDCAT-AP
  - SEMICeu/GeoDCAT-AP
+ - SEMICeu/BregDCAT-AP
+ - SEMICeu/IOPA
+ - SEMICeu/LFDS-AP
+ - SEMICeu/MLDCAT-AP
+ - SEMICeu/STR-AP
+ - SEMICeu/LinkedDataEventStreams
+ - SEMICeu/RRMV
 issuesperpage: 30
 issuesstate: all
 issuessortby : created
 waitingtime: 1
+datefrom: "14/10/2024"
 token: ***REPLACE***
 mediatype: application/vnd.github.v3+jso
 output: output.csv
 header:
  - 'Repo name'
  - 'created'
+ - '#forks'
  - '#issues'
  - '#issues open'
  - '#issues closed'

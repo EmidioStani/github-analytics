@@ -2,11 +2,14 @@ import csv
 import time
 from pathlib import Path
 from queue import Empty
+from datetime import datetime
 
 import requests
 import yaml
 from tqdm import tqdm
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def get_config():
     my_path = Path(__file__).resolve()  # resolve to get rid of any symlinks
@@ -47,6 +50,7 @@ def main():
     api = config['api']
     repo_list = config['repo']
     waitingtime = config['waitingtime']
+    datefrom = config['datefrom']
     token = config['token']
     accept = config['mediatype']
     output = config['output']
@@ -72,6 +76,7 @@ def main():
     
     headers = {'Authorization': 'token ' + token, 'Accept' : accept}
     lines = []
+    total_count_forks = 0
     total_count_issue = 0
     total_count_issue_open = 0
     total_count_issue_closed = 0
@@ -83,10 +88,11 @@ def main():
         repo_bar.set_description(repo)
         repo_url = api + "/repos/" + repo
         time.sleep(waitingtime)
-        repo_response = requests.get(repo_url, headers=headers)
+        repo_response = requests.get(repo_url, headers=headers, verify=False)
         if (repo_response.status_code == 200):
             repo_json = repo_response.json()
             created_at = repo_json["created_at"]
+            forks_count = repo_json["forks_count"]
             issuelist = get_all_issues(issues_per_page, issues_sort_by, repo_url, issues_state, token, headers)
             count_issue = 0
             count_issues_open = 0
@@ -103,47 +109,55 @@ def main():
                     # print(issue["url"])
                     # print(issue["created_at"])
                     # print(issue["user"]["login"])
-                    if(issue['state'] == "open"):
-                        count_issues_open += 1
-                    else:
-                        count_issues_closed += 1
-                    issue_creator = issue["user"]["login"]
+                    issue_created = issue["created_at"]
+                    #print(issue_created)
+                    date_object = datetime.strptime(issue_created, '%Y-%m-%dT%H:%M:%SZ').date()
+                    #print(date_object)
+                    date_from_str = datefrom
+                    date_from = datetime.strptime(date_from_str, "%d/%m/%Y").date()
+                    if(date_object >= date_from):
+                        #print("bigger")
+                        if(issue['state'] == "open"):
+                            count_issues_open += 1
+                        else:
+                            count_issues_closed += 1
+                        issue_creator = issue["user"]["login"]
 
-                    if(issue_creator not in list_creator):
-                        list_creator.append(issue_creator)
-                        profile_url = api + "/users/" + issue_creator
-                        time.sleep(waitingtime)
-                        profile_response = requests.get(profile_url, headers=headers)
-                        profile = profile_response.json()
-                        if(profile["location"]):
-                            # print(profile["location"])
-                            list_creator_location.append(profile["location"])
-                    # print(issue["comments"])
-                    comments = issue["comments"]
-                    count_comment += comments
-                    if(comments > 0):
-                        comments_url = issue["comments_url"]
-                        time.sleep(waitingtime)
-                        comments_response = requests.get(comments_url, headers=headers)
-                        comments_list = comments_response.json()
-                        # print(comments_list)
-                        if (len(comments_list) > 0): # in case of pull requests
-                            for i in tqdm(range(len((comments_list))), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
-                                # print(comments_list[i]["url"])
-                                # print(comments_list[i]["user"]["login"])
-                                #print(comments_list[i])
-                                
-                                comment_creator = comments_list[i]["user"]["login"]
-                                if(comment_creator not in list_comments_creator):
-                                    list_comments_creator.append(comment_creator)
-                                    # print(comments_list[i]["created_at"])
-                                    comment_profile_url = api + "/users/" + comment_creator
-                                    time.sleep(waitingtime)
-                                    comment_profile_response = requests.get(comment_profile_url, headers=headers)
-                                    comment_profile = comment_profile_response.json()
-                                    if(comment_profile["location"]):
-                                        # print(comment_profile["location"])
-                                        list_comments_creator_location.append(comment_profile["location"])
+                        if(issue_creator not in list_creator):
+                            list_creator.append(issue_creator)
+                            profile_url = api + "/users/" + issue_creator
+                            time.sleep(waitingtime)
+                            profile_response = requests.get(profile_url, headers=headers , verify=False)
+                            profile = profile_response.json()
+                            if(profile["location"]):
+                                # print(profile["location"])
+                                list_creator_location.append(profile["location"])
+                        # print(issue["comments"])
+                        comments = issue["comments"]
+                        count_comment += comments
+                        if(comments > 0):
+                            comments_url = issue["comments_url"]
+                            time.sleep(waitingtime)
+                            comments_response = requests.get(comments_url, headers=headers , verify=False )
+                            comments_list = comments_response.json()
+                            # print(comments_list)
+                            if (len(comments_list) > 0): # in case of pull requests
+                                for i in tqdm(range(len((comments_list))), desc=bar_comments_desc, colour=bar_comments_colour, leave=bar_comments_leave):
+                                    # print(comments_list[i]["url"])
+                                    # print(comments_list[i]["user"]["login"])
+                                    #print(comments_list[i])
+                                    
+                                    comment_creator = comments_list[i]["user"]["login"]
+                                    if(comment_creator not in list_comments_creator):
+                                        list_comments_creator.append(comment_creator)
+                                        # print(comments_list[i]["created_at"])
+                                        comment_profile_url = api + "/users/" + comment_creator
+                                        time.sleep(waitingtime)
+                                        comment_profile_response = requests.get(comment_profile_url, headers=headers, verify=False)
+                                        comment_profile = comment_profile_response.json()
+                                        if(comment_profile["location"]):
+                                            # print(comment_profile["location"])
+                                            list_comments_creator_location.append(comment_profile["location"])
                     #if(issue["url"] == "https://api.github.com/repos/SEMICeu/Core-Person-Vocabulary/issues/13"):
                     #    print(issue)
 
@@ -163,6 +177,7 @@ def main():
             joined_list_location =  list(set(list_creator_location + list_comments_creator_location))
             # print("Joined locations: %s" % joined_list_location)
             
+            total_count_forks += forks_count
             total_count_issue += count_issue
             total_count_issue_open += count_issues_open
             total_count_issue_closed += count_issues_closed
@@ -171,13 +186,13 @@ def main():
                 total_users.append(user)
             for location in joined_list_location:
                 total_locations.append(location)
-            lines.append([repo, created_at, count_issue, count_issues_open, count_issues_closed, count_comment, len(joined_list_creator),  joined_list_creator, joined_list_location])
+            lines.append([repo, created_at, forks_count, count_issue, count_issues_open, count_issues_closed, count_comment, len(joined_list_creator),  joined_list_creator, joined_list_location])
         else:
             print("error " + str(repo_response.status_code))
             print("message " + str(repo_response.content))
     total_users = list(set(total_users))
     total_locations = list(set(total_locations))
-    lines.append([csv_total, '' , total_count_issue, total_count_issue_open, total_count_issue_closed, total_count_comments, len(total_users), total_users, total_locations])
+    lines.append([csv_total, '' , total_count_forks , total_count_issue, total_count_issue_open, total_count_issue_closed, total_count_comments, len(total_users), total_users, total_locations])
     with open(output, "w", newline='', encoding=csv_encoding) as f:
         writer = csv.writer(f, delimiter=csv_delimiter)
         # csv_header = ['Repo name', 'created', '#issues', '#comments', '#users', "locations"]
